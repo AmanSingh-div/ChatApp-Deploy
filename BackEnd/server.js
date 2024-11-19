@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
-
+import path from 'path'
 import userRoute from "./routes/userRoute.js"
 import messageRoute from "./routes/messageRoute.js"
 
@@ -35,6 +35,17 @@ catch(error)
 
 serverApp.use("/api/user",userRoute)
 serverApp.use("/api/message",messageRoute)
+
+//----------------Deployment Code-----------------
+if(process.env.NODE_ENV === "production")
+{
+    const dirPath= path.resolve()
+
+    serverApp.use(express.static("./FrontEnd/dist"))
+    serverApp.get("*",(req,res)=>{
+        res.sendFile(path.resolve(dirPath,"./FrontEnd/dist","index.html"))
+    })
+}
 
 
 server.listen(PORT,()=>{
