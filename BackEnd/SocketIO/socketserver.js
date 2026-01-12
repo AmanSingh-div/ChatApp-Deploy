@@ -8,7 +8,7 @@ const serverApp = express()
 const server=http.createServer(serverApp)
 const io=new Server(server,{
     cors:{
-        origin:"https://chatapp-deploy-xihv.onrender.com",
+        origin:"http://localhost:4001",
         method:["GET","POST"],
         
     }
